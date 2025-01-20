@@ -106,22 +106,22 @@ class Tracker:
 
 
 if __name__ == "__main__":
-    steps = 1000
+    steps = 100
     F = np.array([[1.0, 0], [0.0, 1.0]])  
     B = np.zeros((2, 1)) 
     H = np.array([[1.0, 0.0], [0.0, 1.0]]) 
-    Q = np.eye(2) * 0.005 
-    R = np.eye(2) * 0.1
+    Q = np.eye(2) * 0.1
+    R = np.eye(2) * 0.5
     x0 = np.array([[0], [0]]) 
-    P0 = np.eye(2) * 0.001
+    P0 = np.eye(2) * 0.01
     kf = KalmanFilter(F, B, H, Q, R, x0, P0)
     tracker = Tracker(steps)
     position = x0
     x_position = position[0][0]
-    sigma = 10
-    measurment_freq = 100
+    sigma = 0.2
+    measurment_freq = 2
     for t in range(steps):
-        y_position =x_position**2
+        y_position =np.sin(x_position/10)
         
         position = np.array([[x_position], [y_position]]) 
         x_position += 1
